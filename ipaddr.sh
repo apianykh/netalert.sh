@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
+BASEDIR=$(dirname "$0")
+source "${BASEDIR}/.env"
 TMP_FILE="/tmp/ipaddr.tmp"
-
-source .env
 
 send_notification() {
   local MESSAGE=$( echo -e "$@" )

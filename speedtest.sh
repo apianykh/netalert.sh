@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-source .env
+BASEDIR=$(dirname "$0")
+source "${BASEDIR}/.env"
 
 send_notification() {
   local MESSAGE=$( echo -e "$@" )
