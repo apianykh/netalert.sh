@@ -18,9 +18,7 @@ IP_ADDRESS=$( echo "$RESPONSE_JSON" | jq -r .ip )
 LOCATION=$( echo "$RESPONSE_JSON" | jq -r '[.country_iso, .city] | join(" ")' )
 ASN=$( echo "$RESPONSE_JSON" | jq -r '[.asn, .asn_org] | join(" ")' )
 
-MESSAGE=$( printf "IP: ${IP_ADDRESS} Mbps \nLocation: ${LOCATION} Mbps \nASN: $ASN" )
-
-echo $MESSAGE
+MESSAGE=$( echo "IP: ${IP_ADDRESS} \nLocation: ${LOCATION} \nASN: $ASN" )
 
 if [ -f "$TMP_FILE" ]; then 
   OLD_IP_ADDRESS=$( cat $TMP_FILE )
@@ -28,8 +26,5 @@ fi
 echo $IP_ADDRESS > $TMP_FILE
 
 if [ "$OLD_IP_ADDRESS" != "$IP_ADDRESS" ]; then 
-  send_notification $MESSAGE
+  send_notification "$MESSAGE"
 fi
-
-
-

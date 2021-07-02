@@ -20,4 +20,4 @@ UPLOAD_SPEED=$( echo "$RESPONSE_JSON" | jq -c '.upload.bandwidth/125000 | round'
 
 MESSAGE=$( printf "Download: ${DOWNLOAD_SPEED} Mbps \nUpload Speed: ${UPLOAD_SPEED} Mbps \nFrom: $ISP \nTo:$SERVER" )
 
-send_notification $MESSAGE
+send_notification "$MESSAGE"
