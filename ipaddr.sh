@@ -18,7 +18,11 @@ IP_ADDRESS=$( echo "$RESPONSE_JSON" | jq -r .ip )
 LOCATION=$( echo "$RESPONSE_JSON" | jq -r '[.country_iso, .city] | join(" ")' )
 ASN=$( echo "$RESPONSE_JSON" | jq -r '[.asn, .asn_org] | join(" ")' )
 
-MESSAGE=$( echo "IP: ${IP_ADDRESS} \nLocation: ${LOCATION} \nASN: $ASN" )
+if [ -z "$IP_ADDRESS" ]; then
+  exit 1
+fi
+
+MESSAGE=$( echo "IP: $IP_ADDRESS \nLocation: $LOCATION \nASN: $ASN" )
 
 if [ -f "$TMP_FILE" ]; then 
   OLD_IP_ADDRESS=$( cat $TMP_FILE )
